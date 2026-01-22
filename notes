@@ -101,6 +101,19 @@ tinker cheet sheeet on indrive
       },
     ],
   }
+  
+  
+ when creating a new register through tinker
+ 
+ use App\Models\Order;
+
+Order::create([
+    'user_id' => 1,
+    'status' => 'CREATED',
+    'total_amount' => 150.00,
+]);
+
+
 
 
 
