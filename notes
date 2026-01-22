@@ -1,0 +1,136 @@
+composer create-project laravel/laravel .
+php artisan make:migration enable_uuid_extension
+php artisan make:migration create_suppliers_table
+php artisan make:migration create_products_table
+php artisan make:migration create_orders_table
+php artisan make:migration create_order_items_table
+php artisan make:migration create_order_status_history_table
+
+
+php artisan migrate
+
+
+php artisan config:clear
+php artisan cache:clear
+
+
+
+
+
+Creations of enums
+
+
+php artisan make:enum OrderStatus
+mkdir app/Enums
+mv app/OrderStatus.php app/Enums/OrderStatus.php
+
+
+
+
+
+Creation of Services
+
+
+
+
+
+Creation of the model
+php artisan make:model Order
+
+
+
+
+
+Cheet Sheet
+POST /orders/123/pay
+
+
+php artisan make:controller OrderController
+php artisan make:controller OrderController --resource         to show formularies
+php artisan make:controller OrderController --api --resource    to show apis jsons
+
+
+
+
+php artisan route:list
+php artisan route:list --path=orders
+php artisan route:list --columns=Method,URI,Name,Action
+
+
+
+
+
+
+
+
+
+
+Start the project
+
+php artisan optimize:clear
+php artisan serve
+
+
+
+daily senior starting commands
+
+composer install
+php artisan migrate
+
+
+in production
+php artisan migrate --force
+
+
+help to create data en la db
+php artisan tinker
+App\Models\Order::all();
+
+
+tinker cheet sheeet on indrive
+> Order::all();
+= Illuminate\Database\Eloquent\Collection {#5451
+    all: [
+      App\Models\Order {#5402
+        id: "35074654-e451-4667-8e08-2a0f7367fcf2",
+        user_id: 1,
+        status: "CREATED",
+        total_amount: "100.00",
+        created_at: "2026-01-21 19:51:56",
+        updated_at: "2026-01-21 19:51:56",
+      },
+    ],
+  }
+
+
+
+
+curl -X POST http://localhost:8000/api/orders/UUID_AQUI/pay \
+  -H "Accept: application/json"
+  
+  
+  php artisan route:clear
+
+
+
+
+/// it needs to be registered the new route
+
+
+bootstrap/app.php  (here it needs to be registered the new routing)
+
+and after updating
+
+php artisan optimize:clear
+php artisan route:list
+php artisan route:list | grep orders
+
+
+
+
+
+
+
+
+
+
