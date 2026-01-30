@@ -1,7 +1,8 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
-Route::post('/orders/{order}/pay', [OrderController::class, 'pay']);
 
-
-
-
+Route::middleware(['auth:sanctum', 'throttle:pay-order'])
+    ->post('/orders/{order}/pay', [OrderController::class, 'pay'])
+    ->name('orders.pay');

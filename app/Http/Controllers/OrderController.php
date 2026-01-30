@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Http\Requests\PayOrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Services\Orders\OrderService;
 use App\Enums\OrderStatus;
@@ -12,16 +13,15 @@ class OrderController extends Controller
     public function pay(
         Order $order,
         OrderService $orderService,
-        Request $request
+        PayOrderRequest $request
     ) {
         $orderService->changeStatus(
-            $order, 
+            $order,
             OrderStatus::PAID,
             $request->user()->email ?? 'system'
         );
 
-        return response()->json([
-            'message' => 'Order paid successfully'
-        ]);
+        return (new OrderResource($order))
+            ->additional(['message' => 'Order paid successfully']);
     }
 }
